@@ -134,15 +134,32 @@ int genArea(const Layer *layer, int *out, int areaX, int areaZ, int areaWidth, i
 static inline int isOverworldBiome(int mc, int id)
 {
     // check if the biome actually generates in this version
-    switch (id)
+    if (ocean <= id && id <= river)
     {
-    case ocean...river:                                 return 1;
-    case frozen_ocean:                                  return mc >= MC_1_13;
-    case frozen_river...badlands_plateau:               return id != mountain_edge;
-    case warm_ocean...deep_frozen_ocean:                return mc >= MC_1_13 && id != deep_warm_ocean;
-    case sunflower_plains...modified_badlands_plateau:  return 1;
-    case bamboo_jungle...bamboo_jungle_hills:           return mc >= MC_1_14;
-    default:
+        return 1;
+    }
+    else if (id == frozen_ocean)
+    {
+        return mc >= MC_1_13;
+    }
+    else if (frozen_river <= id && id <= badlands_plateau)
+    {
+        return id != mountain_edge;
+    }
+    else if (warm_ocean <= id && id <= deep_frozen_ocean)
+    {
+        return mc >= MC_1_13 && id != deep_warm_ocean;
+    }
+    else if (sunflower_plains <= id && id <= modified_badlands_plateau)
+    {
+        return 1;
+    }
+    else if (bamboo_jungle <= id && id <= bamboo_jungle_hills)
+    {
+        return mc >= MC_1_14;
+    }
+    else
+    {
         return 0;
     }
 }

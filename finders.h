@@ -276,16 +276,12 @@ int64_t *loadSavedSeeds(const char *fnam, int64_t *scnt);
  */
 Pos getStructurePos(StructureConfig config, int64_t seed, int regX, int regZ, int *valid);
 
-static inline __attribute__((const))
 Pos getFeaturePos(StructureConfig config, int64_t seed, int regX, int regZ);
 
-static inline __attribute__((const))
 Pos getFeatureChunkInRegion(StructureConfig config, int64_t seed, int regX, int regZ);
 
-static inline __attribute__((const))
 Pos getLargeStructurePos(StructureConfig config, int64_t seed, int regX, int regZ);
 
-static inline __attribute__((const))
 Pos getLargeStructureChunkInRegion(StructureConfig config, int64_t seed, int regX, int regZ);
 
 /* Some structures check each chunk individually for viability.
@@ -349,18 +345,14 @@ static inline float isQuadBase(const StructureConfig sconf, int64_t seed, int ra
  * generally don't want to inline them. However, these functions usually return
  * so quickly that the function call is a major contributor to the overall time.
  */
-static inline __attribute__((always_inline, const))
 float isQuadBaseFeature24Classic (const StructureConfig sconf, int64_t seed);
 
-static inline __attribute__((always_inline, const))
 float isQuadBaseFeature24 (const StructureConfig sconf, int64_t seed,
         int ax, int ay, int az);
 
-static inline __attribute__((always_inline, const))
 float isQuadBaseFeature (const StructureConfig sconf, int64_t seed,
         int ax, int ay, int az, int radius);
 
-static inline __attribute__((always_inline, const))
 float isQuadBaseLarge (const StructureConfig sconf, int64_t seed,
         int ax, int ay, int az, int radius);
 
@@ -715,8 +707,7 @@ void genPotential(uint64_t *mL, uint64_t *mM, int layer, int mc, int id);
 //==============================================================================
 
 
-static inline __attribute__((const))
-Pos getFeatureChunkInRegion(StructureConfig config, int64_t seed, int regX, int regZ)
+static inline Pos getFeatureChunkInRegion(StructureConfig config, int64_t seed, int regX, int regZ)
 {
     /*
     // Vanilla like implementation.
@@ -754,8 +745,7 @@ Pos getFeatureChunkInRegion(StructureConfig config, int64_t seed, int regX, int 
     return pos;
 }
 
-static inline __attribute__((const))
-Pos getFeaturePos(StructureConfig config, int64_t seed, int regX, int regZ)
+static inline Pos getFeaturePos(StructureConfig config, int64_t seed, int regX, int regZ)
 {
     Pos pos = getFeatureChunkInRegion(config, seed, regX, regZ);
 
@@ -764,8 +754,7 @@ Pos getFeaturePos(StructureConfig config, int64_t seed, int regX, int regZ)
     return pos;
 }
 
-static inline __attribute__((const))
-Pos getLargeStructureChunkInRegion(StructureConfig config, int64_t seed, int regX, int regZ)
+static inline Pos getLargeStructureChunkInRegion(StructureConfig config, int64_t seed, int regX, int regZ)
 {
     Pos pos;
     const int64_t K = 0x5deece66dLL;
@@ -794,8 +783,7 @@ Pos getLargeStructureChunkInRegion(StructureConfig config, int64_t seed, int reg
     return pos;
 }
 
-static inline __attribute__((const))
-Pos getLargeStructurePos(StructureConfig config, int64_t seed, int regX, int regZ)
+static inline Pos getLargeStructurePos(StructureConfig config, int64_t seed, int regX, int regZ)
 {
     Pos pos = getLargeStructureChunkInRegion(config, seed, regX, regZ);
 
@@ -808,8 +796,7 @@ Pos getLargeStructurePos(StructureConfig config, int64_t seed, int regX, int reg
 
 
 
-static __attribute__((const))
-float getEnclosingRadius(
+static inline float getEnclosingRadius(
     int x0, int z0, int x1, int z1, int x2, int z2, int x3, int z3,
     int ax, int ay, int az, int reg, int gap)
 {
@@ -897,8 +884,7 @@ static inline float isQuadBase(const StructureConfig sconf, int64_t seed, int ra
 }
 
 // optimised version for regionSize=32,chunkRange=24,radius=128
-static inline __attribute__((always_inline, const))
-float isQuadBaseFeature24(const StructureConfig sconf, int64_t seed,
+static inline float isQuadBaseFeature24(const StructureConfig sconf, int64_t seed,
         int ax, int ay, int az)
 {
     seed += sconf.salt;
@@ -949,8 +935,7 @@ float isQuadBaseFeature24(const StructureConfig sconf, int64_t seed,
 }
 
 // variant of isQuadBaseFeature24 which finds only the classic constellations
-static inline __attribute__((always_inline, const))
-float isQuadBaseFeature24Classic(const StructureConfig sconf, int64_t seed)
+static inline float isQuadBaseFeature24Classic(const StructureConfig sconf, int64_t seed)
 {
     seed += sconf.salt;
     int64_t s00 = seed;
@@ -982,7 +967,6 @@ float isQuadBaseFeature24Classic(const StructureConfig sconf, int64_t seed)
     return 1; // should actually return one of 122.781311 or 127.887650
 }
 
-static inline __attribute__((always_inline, const))
 float isQuadBaseFeature(const StructureConfig sconf, int64_t seed,
         int ax, int ay, int az, int radius)
 {
@@ -1041,8 +1025,7 @@ float isQuadBaseFeature(const StructureConfig sconf, int64_t seed,
 }
 
 
-static inline __attribute__((always_inline, const))
-float isQuadBaseLarge(const StructureConfig sconf, int64_t seed,
+static inline float isQuadBaseLarge(const StructureConfig sconf, int64_t seed,
         int ax, int ay, int az, int radius)
 {
     // Good quad-monument bases are very rare indeed and the search takes much

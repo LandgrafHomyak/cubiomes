@@ -6,4 +6,5 @@ docs/LayerSummary.aux
 docs/LayerSummary.log
 docs/LayerSummary.synctex.gz
 docs/LayerSummary.toc
-
+venv
+build
