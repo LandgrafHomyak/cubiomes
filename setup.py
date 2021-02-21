@@ -11,11 +11,10 @@ ext = Extension(
     ]
 )
 setup(
-    name="markup_language_parser",
+    name="cubiomes",
     ext_modules=[
         ext
     ],
-    # ext_package="markup_language_parser",
-    # packages=["markup_language_parser"],
-    # package_data={"markup_language_parser": ["py.typed", "__init__.pyi", "_utils.pyi"]}
+    packages=["cubiomes"],
+    package_data={"cubiomes": ["py.typed", "__init__.pyi"]}
 )
