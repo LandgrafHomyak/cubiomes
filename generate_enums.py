@@ -112,6 +112,10 @@ def _initer(*parts):
     {{
         return -1;
     }}
+    if (PyType_Ready(&PyCEnumIterator_Type))
+    {{
+        return -1;
+    }}
     
     return 0;
 }}
@@ -180,4 +184,4 @@ def main(
 
 
 if __name__ == '__main__':
-    main("python/enums.c", [EnumData("123", "Pymemememememme", {"qwe": 4, "1324": 0}, [])])
+    main("python/_enums.c", [EnumData("123", "Pymemememememme", {"qwe": 4, "1324": 0}, [])])

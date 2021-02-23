@@ -10,6 +10,13 @@ typedef struct {
     PyObject *values[1];
 } PyCEnumMetaObject;
 
+
+typedef struct {
+    PyObject_HEAD
+    PyCEnumMetaObject *iterable;
+    Py_ssize_t position;
+} PyCEnumIteratorObject;
+
 extern PyCEnumMetaObject *PyBiomeType_TypePtr;
 typedef struct {
     PyObject_HEAD

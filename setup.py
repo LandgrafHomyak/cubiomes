@@ -3,7 +3,7 @@ from distutils.core import Extension, setup
 from generate_enums import main as generate_enums, EnumData
 
 generate_enums(
-    "python/enums.c",
+    "./python/_enums.c",
     [
         EnumData.from_list(
             "BiomeType",

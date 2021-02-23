@@ -9,6 +9,7 @@
 
 #define PyCEnumMeta_VALUE(__ARG_MCS, __ARG_INDEX) (((PyObject **)(((PyCEnumMetaObject *)(__ARG_MCS))->values))[(__ARG_INDEX)])
 
+extern PyTypeObject PyCEnumIterator_Type;
 extern PyTypeObject PyCEnumMeta_Type;
 
 void PyCEnumMeta_Dealloc(PyCEnumMetaObject *cls);

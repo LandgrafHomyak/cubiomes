@@ -25,3 +25,9 @@ print(cubiomes.Biome("badlands"))
 print(cubiomes.BiomeTempCategory.Warm)
 print(cubiomes.BiomeTempCategory(0))
 print(cubiomes.BiomeTempCategory("Special"))
+
+eit = iter(cubiomes.Biome)
+print(eit)
+print(*(val for val in eit))
+
+# del cubiomes.initBiomeColours()[0]

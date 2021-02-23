@@ -1,4 +1,4 @@
-from typing import Iterable, Union, overload, NoReturn, Literal, Optional
+from typing import Iterable, Union, overload, NoReturn, Literal, Optional, Generic, TypeVar
 
 _RGB_COMPONENT_TYPE = Union[int, bytes]
 
@@ -55,11 +55,22 @@ def initBiomeColours(palette: BiomesPalette = ..., /): ...
 def initBiomeTypeColours(palette: BiomesPalette = ..., /): ...
 
 
-class __enum(type):
+_IV = TypeVar("_IV")
+
+
+class __enum_iterator(Generic[_IV]):
+    def __next__(self) -> _IV: ...
+
+    def __iter__(self) -> __enum_iterator[_IV]: ...
+
+
+class __enum(type, Generic[_IV]):
     __name__: str
 
+    def __iter__(self) -> __enum_iterator[_IV]: ...
 
-class __BiomeTypeMeta(__enum):
+
+class __BiomeTypeMeta(__enum['BiomeType']):
     Void: BiomeType
     Ocean: BiomeType
     Plains: BiomeType
@@ -91,7 +102,7 @@ class BiomeType(metaclass=__BiomeTypeMeta):
     name: str
 
 
-class __BiomeMeta(__enum):
+class __BiomeMeta(__enum['Biome']):
     none: Biome
     ocean: Biome
     plains: Biome
@@ -144,9 +155,7 @@ class __BiomeMeta(__enum):
     deep_lukewarm_ocean: Biome
     deep_cold_ocean: Biome
     deep_frozen_ocean: Biome
-
     the_void: Biome
-
     sunflower_plains: Biome
     desert_lakes: Biome
     gravelly_mountains: Biome
@@ -174,7 +183,6 @@ class __BiomeMeta(__enum):
     crimson_forest: Biome
     warped_forest: Biome
     basalt_deltas: Biome
-
     extremeHills: Biome
     swampland: Biome
     hell: Biome
@@ -227,7 +235,7 @@ class Biome(metaclass=__BiomeMeta):
     alternative_name: Optional[str]
 
 
-class __BiomeTempCategoryMeta(__enum):
+class __BiomeTempCategoryMeta(__enum['BiomeTempCategory']):
     Oceanic: BiomeTempCategory
     Warm: BiomeTempCategory
     Lush: BiomeTempCategory
@@ -236,10 +244,10 @@ class __BiomeTempCategoryMeta(__enum):
     Special: BiomeTempCategory
 
     @overload
-    def __call__(self, id: int, /) -> BiomeType: ...
+    def __call__(self, id: int, /) -> BiomeTempCategory: ...
 
     @overload
-    def __call__(self, name: str, /) -> BiomeType: ...
+    def __call__(self, name: str, /) -> BiomeTempCategory: ...
 
 
 class BiomeTempCategory(metaclass=__BiomeTempCategoryMeta):

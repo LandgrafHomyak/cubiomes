@@ -233,6 +233,16 @@ static int PyBiomesPalette_SetItem(PyBiomesPaletteObject *self, Py_ssize_t index
     Py_ssize_t ci;
     char *bytes;
 
+    if (value == NULL)
+    {
+        PyErr_Format(
+            PyExc_TypeError,
+            "'%s' object doesn't support item deletion",
+            Py_TYPE(self)->tp_name
+        );
+        return -1;
+    }
+
     if (Py_TYPE(value) == &PyColor_Type)
     {
         self->map[index][0] = ((PyColorObject *)value)->red;
@@ -304,11 +314,43 @@ static int PyBiomesPalette_SetItem(PyBiomesPaletteObject *self, Py_ssize_t index
     return 0;
 }
 
+static PyObject * PyBiomesPalette_GetItemO(PyBiomesPaletteObject *self, PyObject *index_o)
+{
+    Py_ssize_t index;
+
+    index = PyLong_AsSsize_t(index_o);
+    if (index == -1 && PyErr_Occurred())
+    {
+        return NULL;
+    }
+
+    return PyBiomesPalette_GetItem(self, index);
+}
+static int PyBiomesPalette_SetItemO(PyBiomesPaletteObject *self, PyObject *index_o, PyObject *value)
+{
+    Py_ssize_t index;
+
+    index = PyLong_AsSsize_t(index_o);
+    if (index == -1 && PyErr_Occurred())
+    {
+        return -1;
+    }
+
+    return PyBiomesPalette_SetItem(self, index, value);
+}
+
 static PySequenceMethods PyBiomesPalette_SequenceMethods = {
     .sq_length = (lenfunc)PyBiomesPalette_Length,
     .sq_item = (ssizeargfunc)PyBiomesPalette_GetItem,
     .sq_contains = (objobjproc)PyBiomesPalette_ContainsPointer,
     .sq_ass_item = (ssizeobjargproc)PyBiomesPalette_SetItem
+};
+
+
+static PyMappingMethods PyBiomesPalette_MappingMethods = {
+    .mp_length = (lenfunc)PyBiomesPalette_Length,
+    .mp_subscript = (binaryfunc)PyBiomesPalette_GetItemO,
+    .mp_ass_subscript = (objobjargproc)PyBiomesPalette_SetItemO
 };
 
 PyTypeObject PyBiomesPalette_Type = {
@@ -322,7 +364,8 @@ PyTypeObject PyBiomesPalette_Type = {
     .tp_init = (initproc)PyBiomesPalette_Init,
     .tp_dealloc = (destructor)PyBiomesPalette_Dealloc,
 //    .tp_repr = (reprfunc)PyBiomesPalette_Repr,
-    .tp_as_sequence = &PyBiomesPalette_SequenceMethods
+    .tp_as_sequence = &PyBiomesPalette_SequenceMethods,
+    .tp_as_mapping = &PyBiomesPalette_MappingMethods
 };
 
 
