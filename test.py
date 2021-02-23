@@ -14,7 +14,14 @@ c = p[0].unbound()
 c.green = 500
 print(c)
 
-# print(s)
-# e = s[62]
-# print(e)
-# print(e.unbound())
+print(cubiomes.BiomeType.Ocean)
+print(cubiomes.BiomeType(8))
+print(cubiomes.BiomeType("Mesa"))
+
+print(cubiomes.Biome.ocean)
+print(cubiomes.Biome(8))
+print(cubiomes.Biome("badlands"))
+
+print(cubiomes.BiomeTempCategory.Warm)
+print(cubiomes.BiomeTempCategory(0))
+print(cubiomes.BiomeTempCategory("Special"))
