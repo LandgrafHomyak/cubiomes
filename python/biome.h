@@ -22,4 +22,17 @@ int PyBiome_InitAll( void );
 
 extern PyObject *Py_biomes;
 
+PyObject * Py_getBiomeType(PyObject *__module__, PyObject *id);
+PyObject * Py_biomeExists(PyObject *__module__, PyObject *id);
+PyObject * Py_getTempCategory(PyObject *__module__, PyObject *id);
+PyObject * Py_areSimilar112(PyObject *__module__, PyObject *args);
+PyObject * Py_areSimilar(PyObject *__module__, PyObject *args);
+PyObject * Py_isShallowOcean(PyObject *__module__, PyObject *id);
+PyObject * Py_isDeepOcean(PyObject *__module__, PyObject *id);
+PyObject * Py_isOceanic(PyObject *__module__, PyObject *id);
+PyObject * Py_isBiomeSnowy(PyObject *__module__, PyObject *id);
+
+
+
+
 #endif CUBIOMES_CPYTHON_BIOME

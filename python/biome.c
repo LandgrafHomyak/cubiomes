@@ -34,6 +34,11 @@ static PyObject * PyBiome_Repr(PyBiomeObject *self)
     PyBiomeIDObject *biomeid;
     PyObject *string;
 
+    if (self->data->id == none)
+    {
+        return PyUnicode_FromFormat("NullBiome");
+    }
+
     biomeid = PyBiome_GetId(self);
     if (biomeid == NULL)
     {
@@ -540,18 +545,566 @@ int PyBiome_InitAll( void )
     }
     for (i = 0; i < 256; i++)
     {
-        if (biomes[i].id == none)
-        {
-            Py_INCREF(Py_None);
-            PyTuple_SET_ITEM(Py_biomes, i, Py_None);
-        }
-        else
-        {
-            PyTuple_SET_ITEM(Py_biomes, i, (PyObject *)&(Py_biomes_instances[i]));
-        }
+        PyTuple_SET_ITEM(Py_biomes, i, (PyObject *)&(Py_biomes_instances[i]));
     }
 
     Py_TYPE(Py_biomes) = &PyBiomesTuple_Type;
 
     return 0;
+}
+// todo parsing of id argument
+PyObject * Py_getBiomeType(PyObject *__module__, PyObject *id)
+{
+    int type = Void;
+
+    if (Py_TYPE(id) == PyBiomeID_TypePtr)
+    {
+        type = getBiomeType(((PyBiomeIDObject *)id)->id);
+    }
+    else if (Py_TYPE(id) == &PyBiome_Type)
+    {
+        type = getBiomeType(((PyBiomeObject *)id)->data->id);
+    }
+    else if (PyLong_Check(id))
+    {
+        type = PyLong_AsLong(id);
+        if (type == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+        type = getBiomeType(type);
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.getBiomeType() don't allowed for custom biomes, only for built-in"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+
+    if (type == Void)
+    {
+        Py_RETURN_NONE;
+    }
+    else
+    {
+        return (PyBiomeTypeObject *)PyObject_CallFunction((PyObject *)PyBiomeType_TypePtr, "i", type);
+    }
+}
+
+PyObject * Py_biomeExists(PyObject *__module__, PyObject *id)
+{
+    int num;
+
+    if (Py_TYPE(id) == PyBiomeID_TypePtr)
+    {
+        if (biomeExists(((PyBiomeIDObject *)id)->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (Py_TYPE(id) == &PyBiome_Type)
+    {
+        if (biomeExists(((PyBiomeObject *)id)->data->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (PyLong_Check(id))
+    {
+        num = PyLong_AsLong(id);
+        if (num == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+        if (biomeExists(num))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.biomeExists() don't allowed for custom biomes, only for members of cubiomes.biomes"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+}
+
+
+PyObject * Py_getTempCategory(PyObject *__module__, PyObject *id)
+{
+    int cat = Void;
+
+    if (Py_TYPE(id) == PyBiomeID_TypePtr)
+    {
+        cat = getTempCategory(((PyBiomeTempCategoryObject *)id)->id);
+    }
+    else if (Py_TYPE(id) == &PyBiome_Type)
+    {
+        cat = getTempCategory(((PyBiomeObject *)id)->data->id);
+    }
+    else if (PyLong_Check(id))
+    {
+        cat = PyLong_AsLong(id);
+        if (cat == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+        cat = getTempCategory(cat);
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.getTempCategory() don't allowed for custom biomes, only for built-in"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+    if (cat == Void)
+    {
+        Py_RETURN_NONE;
+    }
+    return (PyBiomeTempCategoryObject *)PyObject_CallFunction((PyObject *)PyBiomeTempCategory_TypePtr, "i", cat);
+}
+
+PyObject * Py_areSimilar112(PyObject *__module__, PyObject *args)
+{
+    PyObject *id1_o;
+    PyObject *id2_o;
+    int id1, id2;
+
+    if (!PyArg_ParseTuple(args, "OO", &id1_o, &id2_o))
+    {
+        return NULL;
+    }
+
+    if (Py_TYPE(id1_o) == PyBiomeID_TypePtr)
+    {
+        id1 = ((PyBiomeTempCategoryObject *)id1_o)->id;
+    }
+    else if (Py_TYPE(id1_o) == &PyBiome_Type)
+    {
+        id1 = ((PyBiomeObject *)id1_o)->data->id;
+    }
+    else if (PyLong_Check(id1_o))
+    {
+        id1 = PyLong_AsLong(id1_o);
+        if (id1 == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id1_o, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.areSimilar112() don't allowed for custom biomes, only for built-in"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+
+    if (Py_TYPE(id2_o) == PyBiomeID_TypePtr)
+    {
+        id1 = ((PyBiomeTempCategoryObject *)id1_o)->id;
+    }
+    else if (Py_TYPE(id2_o) == &PyBiome_Type)
+    {
+        id1 = ((PyBiomeObject *)id2_o)->data->id;
+    }
+    else if (PyLong_Check(id2_o))
+    {
+        id2 = PyLong_AsLong(id2_o);
+        if (id2 == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id2_o, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.areSimilar112() don't allowed for custom biomes, only for built-in"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+
+
+    if (areSimilar112(id1, id2))
+    {
+        Py_RETURN_TRUE;
+    }
+    else
+    {
+        Py_RETURN_FALSE;
+    }
+}
+
+PyObject * Py_areSimilar(PyObject *__module__, PyObject *args)
+{
+    PyObject *id1_o;
+    PyObject *id2_o;
+    int id1, id2;
+
+    if (!PyArg_ParseTuple(args, "OO", &id1_o, &id2_o))
+    {
+        return NULL;
+    }
+
+    if (Py_TYPE(id1_o) == PyBiomeID_TypePtr)
+    {
+        id1 = ((PyBiomeTempCategoryObject *)id1_o)->id;
+    }
+    else if (Py_TYPE(id1_o) == &PyBiome_Type)
+    {
+        id1 = ((PyBiomeObject *)id1_o)->data->id;
+    }
+    else if (PyLong_Check(id1_o))
+    {
+        id1 = PyLong_AsLong(id1_o);
+        if (id1 == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id1_o, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.areSimilar() don't allowed for custom biomes, only for built-in"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+
+    if (Py_TYPE(id2_o) == PyBiomeID_TypePtr)
+    {
+        id1 = ((PyBiomeTempCategoryObject *)id1_o)->id;
+    }
+    else if (Py_TYPE(id2_o) == &PyBiome_Type)
+    {
+        id1 = ((PyBiomeObject *)id2_o)->data->id;
+    }
+    else if (PyLong_Check(id2_o))
+    {
+        id2 = PyLong_AsLong(id2_o);
+        if (id2 == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id2_o, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.areSimilar() don't allowed for custom biomes, only for built-in"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+
+
+    if (areSimilar(id1, id2))
+    {
+        Py_RETURN_TRUE;
+    }
+    else
+    {
+        Py_RETURN_FALSE;
+    }
+}
+
+
+PyObject * Py_isShallowOcean(PyObject *__module__, PyObject *id)
+{
+    int num;
+
+    if (Py_TYPE(id) == PyBiomeID_TypePtr)
+    {
+        if (isShallowOcean(((PyBiomeIDObject *)id)->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (Py_TYPE(id) == &PyBiome_Type)
+    {
+        if (isShallowOcean(((PyBiomeObject *)id)->data->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (PyLong_Check(id))
+    {
+        num = PyLong_AsLong(id);
+        if (num == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+        if (isShallowOcean(num))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.isShallowOcean() don't allowed for custom biomes, only for members of cubiomes.biomes"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+}
+
+
+PyObject * Py_isDeepOcean(PyObject *__module__, PyObject *id)
+{
+    int num;
+
+    if (Py_TYPE(id) == PyBiomeID_TypePtr)
+    {
+        if (isDeepOcean(((PyBiomeIDObject *)id)->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (Py_TYPE(id) == &PyBiome_Type)
+    {
+        if (isDeepOcean(((PyBiomeObject *)id)->data->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (PyLong_Check(id))
+    {
+        num = PyLong_AsLong(id);
+        if (num == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+        if (isDeepOcean(num))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.isDeepOcean() don't allowed for custom biomes, only for members of cubiomes.biomes"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+}
+
+
+PyObject * Py_isOceanic(PyObject *__module__, PyObject *id)
+{
+    int num;
+
+    if (Py_TYPE(id) == PyBiomeID_TypePtr)
+    {
+        if (isOceanic(((PyBiomeIDObject *)id)->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (Py_TYPE(id) == &PyBiome_Type)
+    {
+        if (isOceanic(((PyBiomeObject *)id)->data->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (PyLong_Check(id))
+    {
+        num = PyLong_AsLong(id);
+        if (num == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+        if (isOceanic(num))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.isOceanic() don't allowed for custom biomes, only for members of cubiomes.biomes"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
+}
+
+PyObject * Py_isBiomeSnowy(PyObject *__module__, PyObject *id)
+{
+    int num;
+
+    if (Py_TYPE(id) == PyBiomeID_TypePtr)
+    {
+        if (isBiomeSnowy(((PyBiomeIDObject *)id)->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (Py_TYPE(id) == &PyBiome_Type)
+    {
+        if (isBiomeSnowy(((PyBiomeObject *)id)->data->id))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else if (PyLong_Check(id))
+    {
+        num = PyLong_AsLong(id);
+        if (num == -1 && PyErr_Occurred())
+        {
+            return NULL;
+        }
+        if (isBiomeSnowy(num))
+            Py_RETURN_TRUE;
+        else
+            Py_RETURN_FALSE;
+    }
+    else
+    {
+        switch (PyObject_IsInstance(id, &PyCustomBiome_Type))
+        {
+            case -1:
+                return NULL;
+            case 1:
+                PyErr_Format(
+                    PyExc_TypeError,
+                    "cubiomes.isBiomeSnowy() don't allowed for custom biomes, only for members of cubiomes.biomes"
+                );
+                return NULL;
+        }
+
+        PyErr_Format(
+            PyExc_TypeError,
+            "argument must be int, cubiomes.Biome or cubiomes.BiomeID"
+        );
+        return NULL;
+    }
 }

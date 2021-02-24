@@ -34,6 +34,7 @@ print(*(val for val in eit))
 
 cubiomes.initBiomes()
 
+print(cubiomes.biomes)
 print(cubiomes.biomes[10])
 print(cubiomes.biomes[cubiomes.BiomeID.birchForest])
 
@@ -43,3 +44,23 @@ class custom_biome(cubiomes.Biome):
 
 
 print(custom_biome.__mro__)
+
+print(cubiomes.getBiomeType(10))
+print(cubiomes.getBiomeType(cubiomes.BiomeID.bamboo_jungle))
+print(cubiomes.getBiomeType(cubiomes.biomes[160]))
+
+print(cubiomes.biomeExists(cubiomes.biomes[160]))
+print(cubiomes.biomeExists(0))
+print(cubiomes.biomeExists(cubiomes.BiomeID.badlands_plateau))
+
+print(cubiomes.getTempCategory(cubiomes.biomes[160]))
+print(cubiomes.getTempCategory(0))
+print(cubiomes.getTempCategory(cubiomes.BiomeID.badlands_plateau))
+
+print(cubiomes.areSimilar112(1, 1))
+print(cubiomes.areSimilar(cubiomes.BiomeID.ocean, 0))
+
+print(cubiomes.isShallowOcean(cubiomes.BiomeID.mesa))
+print(cubiomes.isDeepOcean(cubiomes.BiomeID.mesa))
+print(cubiomes.isOceanic(cubiomes.BiomeID.mesa))
+print(cubiomes.isBiomeSnowy(cubiomes.BiomeID.mesa))

@@ -13,6 +13,15 @@ static PyMethodDef module_functions[] = {
      {"initBiomeColours", (PyCFunction)Py_initBiomeColours, METH_VARARGS, "This colouring scheme is taken from the AMIDST program:\nhttps://github.com/toolbox4minecraft/amidst\nhttps://sourceforge.net/projects/amidst.mirror/"},
      {"initBiomeTypeColours", (PyCFunction)Py_initBiomeTypeColours, METH_VARARGS, ""},
      {"initBiomes", (PyCFunction)Py_initBiomes, METH_NOARGS, ""},
+     {"getBiomeType", (PyCFunction)Py_getBiomeType, METH_O, ""},
+     {"biomeExists", (PyCFunction)Py_biomeExists, METH_O, ""},
+     {"getTempCategory", (PyCFunction)Py_getTempCategory, METH_O, ""},
+     {"areSimilar112", (PyCFunction)Py_areSimilar112, METH_VARARGS, ""},
+     {"areSimilar", (PyCFunction)Py_areSimilar, METH_VARARGS, ""},
+     {"isShallowOcean", (PyCFunction)Py_isShallowOcean, METH_O, ""},
+     {"isDeepOcean", (PyCFunction)Py_isDeepOcean, METH_O, ""},
+     {"isOceanic", (PyCFunction)Py_isOceanic, METH_O, ""},
+     {"isBiomeSnowy", (PyCFunction)Py_isBiomeSnowy, METH_O, ""},
      {NULL}
 };
 
