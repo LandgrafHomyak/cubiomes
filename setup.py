@@ -31,8 +31,8 @@ generate_enums(
             lambda s: {"id": s, "name": f"\"{s}\""}
         ),
         EnumData.from_list(
-            "Biome",
-            "PyBiomeObject",
+            "BiomeID",
+            "PyBiomeIDObject",
             (
                 "none",
                 "ocean",
@@ -187,6 +187,7 @@ ext = Extension(
         "./python/_enums.c",
         "./python/enums.c",
         "./python/biome_colours.c",
+        "./python/biome.c",
     ]
 )
 setup(

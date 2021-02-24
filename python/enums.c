@@ -69,7 +69,7 @@ void PyCEnumMeta_Dealloc(PyCEnumMetaObject *cls)
 PyCEnumIteratorObject * PyCEnumMeta_Iter(PyCEnumMetaObject *cls)
 {
     PyCEnumIteratorObject *iterator;
-    iterator = PyCEnumIterator_Type.tp_alloc(&PyCEnumIterator_Type, 0);
+    iterator = (PyCEnumIteratorObject *)(PyCEnumIterator_Type.tp_alloc(&PyCEnumIterator_Type, 0));
     if (iterator == NULL)
     {
         PyErr_NoMemory();
@@ -220,7 +220,7 @@ PyTypeObject PyBiomeType_TypeBase = {
     .tp_members = PyBiomeType_Members,
 };
 
-PyBiomeObject * PyBiome_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *kwargs)
+PyBiomeIDObject * PyBiomeID_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *kwargs)
 {
     PyObject *value;
     int id;
@@ -274,10 +274,10 @@ PyBiomeObject * PyBiome_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *k
 
         for (i = 0; i < Py_SIZE(cls); i++)
         {
-            if (((PyBiomeObject *)PyCEnumMeta_VALUE(cls, i))->id == id)
+            if (((PyBiomeIDObject *)PyCEnumMeta_VALUE(cls, i))->id == id)
             {
                 Py_INCREF(PyCEnumMeta_VALUE(cls, i));
-                return (PyBiomeObject *)PyCEnumMeta_VALUE(cls, i);
+                return (PyBiomeIDObject *)PyCEnumMeta_VALUE(cls, i);
             }
         }
 
@@ -291,17 +291,17 @@ PyBiomeObject * PyBiome_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *k
     {
         for (i = 0; i < Py_SIZE(cls); i++)
         {
-            if (PyUnicode_CompareWithASCIIString(value, ((PyBiomeObject *)PyCEnumMeta_VALUE(cls, i))->name) == 0)
+            if (PyUnicode_CompareWithASCIIString(value, ((PyBiomeIDObject *)PyCEnumMeta_VALUE(cls, i))->name) == 0)
             {
                 Py_INCREF(PyCEnumMeta_VALUE(cls, i));
-                return (PyBiomeObject *)PyCEnumMeta_VALUE(cls, i);
+                return (PyBiomeIDObject *)PyCEnumMeta_VALUE(cls, i);
             }
-            if (((PyBiomeObject *)PyCEnumMeta_VALUE(cls, i))->alternative_name != NULL)
+            if (((PyBiomeIDObject *)PyCEnumMeta_VALUE(cls, i))->alternative_name != NULL)
             {
-                if (PyUnicode_CompareWithASCIIString(value, ((PyBiomeObject *)PyCEnumMeta_VALUE(cls, i))->alternative_name) == 0)
+                if (PyUnicode_CompareWithASCIIString(value, ((PyBiomeIDObject *)PyCEnumMeta_VALUE(cls, i))->alternative_name) == 0)
                 {
                     Py_INCREF(PyCEnumMeta_VALUE(cls, i));
-                    return (PyBiomeObject *)PyCEnumMeta_VALUE(cls, i);
+                    return (PyBiomeIDObject *)PyCEnumMeta_VALUE(cls, i);
                 }
             }
         }
@@ -320,36 +320,36 @@ PyBiomeObject * PyBiome_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *k
 
 }
 
-static PyObject *PyBiome_Repr(PyBiomeObject *self)
+static PyObject *PyBiomeID_Repr(PyBiomeIDObject *self)
 {
     return PyUnicode_FromFormat(
-        "<Biome '%s' id=%d>",
+        "<BiomeID '%s' id=%d>",
         self->name,
         self->id
     );
 }
-static void PyBiome_Dealloc(PyBiomeObject *self)
+static void PyBiomeID_Dealloc(PyBiomeIDObject *self)
 {
 
 }
 
-static PyMemberDef PyBiome_Members[] = {
-    {"id", T_INT, offsetof(PyBiomeObject, id), READONLY, ""},
-    {"name", T_STRING, offsetof(PyBiomeObject, name), READONLY, ""},
-    {"alternative_name", T_STRING, offsetof(PyBiomeObject, alternative_name), READONLY, ""},
+static PyMemberDef PyBiomeID_Members[] = {
+    {"id", T_INT, offsetof(PyBiomeIDObject, id), READONLY, ""},
+    {"name", T_STRING, offsetof(PyBiomeIDObject, name), READONLY, ""},
+    {"alternative_name", T_STRING, offsetof(PyBiomeIDObject, alternative_name), READONLY, ""},
     {NULL}
 };
 
-PyTypeObject PyBiome_TypeBase = {
+PyTypeObject PyBiomeID_TypeBase = {
     PyVarObject_HEAD_INIT(&PyCEnumMeta_Type, 0)
     .tp_name = "cubiomes.Biome",
     .tp_doc = "",
-    .tp_basicsize = sizeof(PyBiomeObject),
+    .tp_basicsize = sizeof(PyBiomeIDObject),
     .tp_itemsize = 0,
     .tp_flags = Py_TPFLAGS_DEFAULT,
-    .tp_dealloc = (destructor)PyBiome_Dealloc,
-    .tp_repr = (reprfunc)PyBiome_Repr,
-    .tp_members = PyBiome_Members,
+    .tp_dealloc = (destructor)PyBiomeID_Dealloc,
+    .tp_repr = (reprfunc)PyBiomeID_Repr,
+    .tp_members = PyBiomeID_Members,
 };
 
 

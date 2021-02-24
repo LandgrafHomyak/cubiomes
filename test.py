@@ -18,16 +18,28 @@ print(cubiomes.BiomeType.Ocean)
 print(cubiomes.BiomeType(8))
 print(cubiomes.BiomeType("Mesa"))
 
-print(cubiomes.Biome.ocean)
-print(cubiomes.Biome(8))
-print(cubiomes.Biome("badlands"))
+print(cubiomes.BiomeID.ocean)
+print(cubiomes.BiomeID(8))
+print(cubiomes.BiomeID("badlands"))
 
 print(cubiomes.BiomeTempCategory.Warm)
 print(cubiomes.BiomeTempCategory(0))
 print(cubiomes.BiomeTempCategory("Special"))
 
-eit = iter(cubiomes.Biome)
+eit = iter(cubiomes.BiomeID)
 print(eit)
 print(*(val for val in eit))
 
 # del cubiomes.initBiomeColours()[0]
+
+cubiomes.initBiomes()
+
+print(cubiomes.biomes[10])
+print(cubiomes.biomes[cubiomes.BiomeID.birchForest])
+
+
+class custom_biome(cubiomes.Biome):
+    pass
+
+
+print(custom_biome.__mro__)

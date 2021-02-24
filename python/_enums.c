@@ -138,30 +138,30 @@ static struct {
     PyObject *values[18];
 } _PyBiomeType_Type = {
     .values = {
-        &(PyCEnum_BiomeType_values[0]),
-        &(PyCEnum_BiomeType_values[1]),
-        &(PyCEnum_BiomeType_values[2]),
-        &(PyCEnum_BiomeType_values[3]),
-        &(PyCEnum_BiomeType_values[4]),
-        &(PyCEnum_BiomeType_values[5]),
-        &(PyCEnum_BiomeType_values[6]),
-        &(PyCEnum_BiomeType_values[7]),
-        &(PyCEnum_BiomeType_values[8]),
-        &(PyCEnum_BiomeType_values[9]),
-        &(PyCEnum_BiomeType_values[10]),
-        &(PyCEnum_BiomeType_values[11]),
-        &(PyCEnum_BiomeType_values[12]),
-        &(PyCEnum_BiomeType_values[13]),
-        &(PyCEnum_BiomeType_values[14]),
-        &(PyCEnum_BiomeType_values[15]),
-        &(PyCEnum_BiomeType_values[16]),
-        &(PyCEnum_BiomeType_values[17])
+        (PyObject *)&(PyCEnum_BiomeType_values[0]),
+        (PyObject *)&(PyCEnum_BiomeType_values[1]),
+        (PyObject *)&(PyCEnum_BiomeType_values[2]),
+        (PyObject *)&(PyCEnum_BiomeType_values[3]),
+        (PyObject *)&(PyCEnum_BiomeType_values[4]),
+        (PyObject *)&(PyCEnum_BiomeType_values[5]),
+        (PyObject *)&(PyCEnum_BiomeType_values[6]),
+        (PyObject *)&(PyCEnum_BiomeType_values[7]),
+        (PyObject *)&(PyCEnum_BiomeType_values[8]),
+        (PyObject *)&(PyCEnum_BiomeType_values[9]),
+        (PyObject *)&(PyCEnum_BiomeType_values[10]),
+        (PyObject *)&(PyCEnum_BiomeType_values[11]),
+        (PyObject *)&(PyCEnum_BiomeType_values[12]),
+        (PyObject *)&(PyCEnum_BiomeType_values[13]),
+        (PyObject *)&(PyCEnum_BiomeType_values[14]),
+        (PyObject *)&(PyCEnum_BiomeType_values[15]),
+        (PyObject *)&(PyCEnum_BiomeType_values[16]),
+        (PyObject *)&(PyCEnum_BiomeType_values[17])
     }
 };
 
 PyCEnumMetaObject *PyBiomeType_TypePtr = (PyCEnumMetaObject *)&_PyBiomeType_Type;
     
-static PyMemberDef PyCEnum_Biome_members[] = {
+static PyMemberDef PyCEnum_BiomeID_members[] = {
     {"none", T_OBJECT_EX, offsetof(PyCEnumMetaObject, values) + sizeof(PyObject *) * 0, READONLY},
     {"ocean", T_OBJECT_EX, offsetof(PyCEnumMetaObject, values) + sizeof(PyObject *) * 1, READONLY},
     {"plains", T_OBJECT_EX, offsetof(PyCEnumMetaObject, values) + sizeof(PyObject *) * 2, READONLY},
@@ -283,7 +283,7 @@ static PyMemberDef PyCEnum_Biome_members[] = {
     {NULL}
 };
 
-static PyBiomeObject PyCEnum_Biome_values[] = {
+static PyBiomeIDObject PyCEnum_BiomeID_values[] = {
     {
     PyObject_HEAD_INIT(NULL)
     .id = none,
@@ -766,107 +766,107 @@ static PyBiomeObject PyCEnum_Biome_values[] = {
   }
 };
 
-static PyTypeObject PyBiome_MetaType = {
+static PyTypeObject PyBiomeID_MetaType = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name = "cubiomes.Biome",
+    .tp_name = "cubiomes.BiomeID",
     .tp_doc = "",
     .tp_basicsize = sizeof(PyCEnumMetaObject) - sizeof(PyObject *),
     .tp_itemsize = sizeof(PyObject *),
     .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_TYPE_SUBCLASS,
     .tp_dealloc = (destructor)PyCEnumMeta_Dealloc,
-    .tp_members = PyCEnum_Biome_members,
-    .tp_call = (ternaryfunc)PyBiome_Call
+    .tp_members = PyCEnum_BiomeID_members,
+    .tp_call = (ternaryfunc)PyBiomeID_Call
 };
 
 static struct {
     PyTypeObject base;
     PyObject *values[80];
-} _PyBiome_Type = {
+} _PyBiomeID_Type = {
     .values = {
-        &(PyCEnum_Biome_values[0]),
-        &(PyCEnum_Biome_values[1]),
-        &(PyCEnum_Biome_values[2]),
-        &(PyCEnum_Biome_values[3]),
-        &(PyCEnum_Biome_values[4]),
-        &(PyCEnum_Biome_values[5]),
-        &(PyCEnum_Biome_values[6]),
-        &(PyCEnum_Biome_values[7]),
-        &(PyCEnum_Biome_values[8]),
-        &(PyCEnum_Biome_values[9]),
-        &(PyCEnum_Biome_values[10]),
-        &(PyCEnum_Biome_values[11]),
-        &(PyCEnum_Biome_values[12]),
-        &(PyCEnum_Biome_values[13]),
-        &(PyCEnum_Biome_values[14]),
-        &(PyCEnum_Biome_values[15]),
-        &(PyCEnum_Biome_values[16]),
-        &(PyCEnum_Biome_values[17]),
-        &(PyCEnum_Biome_values[18]),
-        &(PyCEnum_Biome_values[19]),
-        &(PyCEnum_Biome_values[20]),
-        &(PyCEnum_Biome_values[21]),
-        &(PyCEnum_Biome_values[22]),
-        &(PyCEnum_Biome_values[23]),
-        &(PyCEnum_Biome_values[24]),
-        &(PyCEnum_Biome_values[25]),
-        &(PyCEnum_Biome_values[26]),
-        &(PyCEnum_Biome_values[27]),
-        &(PyCEnum_Biome_values[28]),
-        &(PyCEnum_Biome_values[29]),
-        &(PyCEnum_Biome_values[30]),
-        &(PyCEnum_Biome_values[31]),
-        &(PyCEnum_Biome_values[32]),
-        &(PyCEnum_Biome_values[33]),
-        &(PyCEnum_Biome_values[34]),
-        &(PyCEnum_Biome_values[35]),
-        &(PyCEnum_Biome_values[36]),
-        &(PyCEnum_Biome_values[37]),
-        &(PyCEnum_Biome_values[38]),
-        &(PyCEnum_Biome_values[39]),
-        &(PyCEnum_Biome_values[40]),
-        &(PyCEnum_Biome_values[41]),
-        &(PyCEnum_Biome_values[42]),
-        &(PyCEnum_Biome_values[43]),
-        &(PyCEnum_Biome_values[44]),
-        &(PyCEnum_Biome_values[45]),
-        &(PyCEnum_Biome_values[46]),
-        &(PyCEnum_Biome_values[47]),
-        &(PyCEnum_Biome_values[48]),
-        &(PyCEnum_Biome_values[49]),
-        &(PyCEnum_Biome_values[50]),
-        &(PyCEnum_Biome_values[51]),
-        &(PyCEnum_Biome_values[52]),
-        &(PyCEnum_Biome_values[53]),
-        &(PyCEnum_Biome_values[54]),
-        &(PyCEnum_Biome_values[55]),
-        &(PyCEnum_Biome_values[56]),
-        &(PyCEnum_Biome_values[57]),
-        &(PyCEnum_Biome_values[58]),
-        &(PyCEnum_Biome_values[59]),
-        &(PyCEnum_Biome_values[60]),
-        &(PyCEnum_Biome_values[61]),
-        &(PyCEnum_Biome_values[62]),
-        &(PyCEnum_Biome_values[63]),
-        &(PyCEnum_Biome_values[64]),
-        &(PyCEnum_Biome_values[65]),
-        &(PyCEnum_Biome_values[66]),
-        &(PyCEnum_Biome_values[67]),
-        &(PyCEnum_Biome_values[68]),
-        &(PyCEnum_Biome_values[69]),
-        &(PyCEnum_Biome_values[70]),
-        &(PyCEnum_Biome_values[71]),
-        &(PyCEnum_Biome_values[72]),
-        &(PyCEnum_Biome_values[73]),
-        &(PyCEnum_Biome_values[74]),
-        &(PyCEnum_Biome_values[75]),
-        &(PyCEnum_Biome_values[76]),
-        &(PyCEnum_Biome_values[77]),
-        &(PyCEnum_Biome_values[78]),
-        &(PyCEnum_Biome_values[79])
+        (PyObject *)&(PyCEnum_BiomeID_values[0]),
+        (PyObject *)&(PyCEnum_BiomeID_values[1]),
+        (PyObject *)&(PyCEnum_BiomeID_values[2]),
+        (PyObject *)&(PyCEnum_BiomeID_values[3]),
+        (PyObject *)&(PyCEnum_BiomeID_values[4]),
+        (PyObject *)&(PyCEnum_BiomeID_values[5]),
+        (PyObject *)&(PyCEnum_BiomeID_values[6]),
+        (PyObject *)&(PyCEnum_BiomeID_values[7]),
+        (PyObject *)&(PyCEnum_BiomeID_values[8]),
+        (PyObject *)&(PyCEnum_BiomeID_values[9]),
+        (PyObject *)&(PyCEnum_BiomeID_values[10]),
+        (PyObject *)&(PyCEnum_BiomeID_values[11]),
+        (PyObject *)&(PyCEnum_BiomeID_values[12]),
+        (PyObject *)&(PyCEnum_BiomeID_values[13]),
+        (PyObject *)&(PyCEnum_BiomeID_values[14]),
+        (PyObject *)&(PyCEnum_BiomeID_values[15]),
+        (PyObject *)&(PyCEnum_BiomeID_values[16]),
+        (PyObject *)&(PyCEnum_BiomeID_values[17]),
+        (PyObject *)&(PyCEnum_BiomeID_values[18]),
+        (PyObject *)&(PyCEnum_BiomeID_values[19]),
+        (PyObject *)&(PyCEnum_BiomeID_values[20]),
+        (PyObject *)&(PyCEnum_BiomeID_values[21]),
+        (PyObject *)&(PyCEnum_BiomeID_values[22]),
+        (PyObject *)&(PyCEnum_BiomeID_values[23]),
+        (PyObject *)&(PyCEnum_BiomeID_values[24]),
+        (PyObject *)&(PyCEnum_BiomeID_values[25]),
+        (PyObject *)&(PyCEnum_BiomeID_values[26]),
+        (PyObject *)&(PyCEnum_BiomeID_values[27]),
+        (PyObject *)&(PyCEnum_BiomeID_values[28]),
+        (PyObject *)&(PyCEnum_BiomeID_values[29]),
+        (PyObject *)&(PyCEnum_BiomeID_values[30]),
+        (PyObject *)&(PyCEnum_BiomeID_values[31]),
+        (PyObject *)&(PyCEnum_BiomeID_values[32]),
+        (PyObject *)&(PyCEnum_BiomeID_values[33]),
+        (PyObject *)&(PyCEnum_BiomeID_values[34]),
+        (PyObject *)&(PyCEnum_BiomeID_values[35]),
+        (PyObject *)&(PyCEnum_BiomeID_values[36]),
+        (PyObject *)&(PyCEnum_BiomeID_values[37]),
+        (PyObject *)&(PyCEnum_BiomeID_values[38]),
+        (PyObject *)&(PyCEnum_BiomeID_values[39]),
+        (PyObject *)&(PyCEnum_BiomeID_values[40]),
+        (PyObject *)&(PyCEnum_BiomeID_values[41]),
+        (PyObject *)&(PyCEnum_BiomeID_values[42]),
+        (PyObject *)&(PyCEnum_BiomeID_values[43]),
+        (PyObject *)&(PyCEnum_BiomeID_values[44]),
+        (PyObject *)&(PyCEnum_BiomeID_values[45]),
+        (PyObject *)&(PyCEnum_BiomeID_values[46]),
+        (PyObject *)&(PyCEnum_BiomeID_values[47]),
+        (PyObject *)&(PyCEnum_BiomeID_values[48]),
+        (PyObject *)&(PyCEnum_BiomeID_values[49]),
+        (PyObject *)&(PyCEnum_BiomeID_values[50]),
+        (PyObject *)&(PyCEnum_BiomeID_values[51]),
+        (PyObject *)&(PyCEnum_BiomeID_values[52]),
+        (PyObject *)&(PyCEnum_BiomeID_values[53]),
+        (PyObject *)&(PyCEnum_BiomeID_values[54]),
+        (PyObject *)&(PyCEnum_BiomeID_values[55]),
+        (PyObject *)&(PyCEnum_BiomeID_values[56]),
+        (PyObject *)&(PyCEnum_BiomeID_values[57]),
+        (PyObject *)&(PyCEnum_BiomeID_values[58]),
+        (PyObject *)&(PyCEnum_BiomeID_values[59]),
+        (PyObject *)&(PyCEnum_BiomeID_values[60]),
+        (PyObject *)&(PyCEnum_BiomeID_values[61]),
+        (PyObject *)&(PyCEnum_BiomeID_values[62]),
+        (PyObject *)&(PyCEnum_BiomeID_values[63]),
+        (PyObject *)&(PyCEnum_BiomeID_values[64]),
+        (PyObject *)&(PyCEnum_BiomeID_values[65]),
+        (PyObject *)&(PyCEnum_BiomeID_values[66]),
+        (PyObject *)&(PyCEnum_BiomeID_values[67]),
+        (PyObject *)&(PyCEnum_BiomeID_values[68]),
+        (PyObject *)&(PyCEnum_BiomeID_values[69]),
+        (PyObject *)&(PyCEnum_BiomeID_values[70]),
+        (PyObject *)&(PyCEnum_BiomeID_values[71]),
+        (PyObject *)&(PyCEnum_BiomeID_values[72]),
+        (PyObject *)&(PyCEnum_BiomeID_values[73]),
+        (PyObject *)&(PyCEnum_BiomeID_values[74]),
+        (PyObject *)&(PyCEnum_BiomeID_values[75]),
+        (PyObject *)&(PyCEnum_BiomeID_values[76]),
+        (PyObject *)&(PyCEnum_BiomeID_values[77]),
+        (PyObject *)&(PyCEnum_BiomeID_values[78]),
+        (PyObject *)&(PyCEnum_BiomeID_values[79])
     }
 };
 
-PyCEnumMetaObject *PyBiome_TypePtr = (PyCEnumMetaObject *)&_PyBiome_Type;
+PyCEnumMetaObject *PyBiomeID_TypePtr = (PyCEnumMetaObject *)&_PyBiomeID_Type;
     
 static PyMemberDef PyCEnum_BiomeTempCategory_members[] = {
     {"Oceanic", T_OBJECT_EX, offsetof(PyCEnumMetaObject, values) + sizeof(PyObject *) * 0, READONLY},
@@ -928,12 +928,12 @@ static struct {
     PyObject *values[6];
 } _PyBiomeTempCategory_Type = {
     .values = {
-        &(PyCEnum_BiomeTempCategory_values[0]),
-        &(PyCEnum_BiomeTempCategory_values[1]),
-        &(PyCEnum_BiomeTempCategory_values[2]),
-        &(PyCEnum_BiomeTempCategory_values[3]),
-        &(PyCEnum_BiomeTempCategory_values[4]),
-        &(PyCEnum_BiomeTempCategory_values[5])
+        (PyObject *)&(PyCEnum_BiomeTempCategory_values[0]),
+        (PyObject *)&(PyCEnum_BiomeTempCategory_values[1]),
+        (PyObject *)&(PyCEnum_BiomeTempCategory_values[2]),
+        (PyObject *)&(PyCEnum_BiomeTempCategory_values[3]),
+        (PyObject *)&(PyCEnum_BiomeTempCategory_values[4]),
+        (PyObject *)&(PyCEnum_BiomeTempCategory_values[5])
     }
 };
 
@@ -956,37 +956,37 @@ int PyCEnum_InitAll( void )
     Py_TYPE(PyBiomeType_TypePtr) = &PyBiomeType_MetaType;
     Py_SIZE(PyBiomeType_TypePtr) = 18;
     
-    if (PyType_Ready(PyBiomeType_TypePtr))
+    if (PyType_Ready((PyTypeObject *)PyBiomeType_TypePtr))
     {
         return -1;
     }
     
     for (i = 0; i < 18; i++)
     {
-        Py_TYPE(&(PyCEnum_BiomeType_values[i])) = PyBiomeType_TypePtr;
+        Py_TYPE(&(PyCEnum_BiomeType_values[i])) = (PyTypeObject *)PyBiomeType_TypePtr;
     }
 
 
 
 
-    PyBiome_MetaType.tp_base = &PyCEnumMeta_Type;
-    if (PyType_Ready(&PyBiome_MetaType))
+    PyBiomeID_MetaType.tp_base = &PyCEnumMeta_Type;
+    if (PyType_Ready(&PyBiomeID_MetaType))
     {
         return -1;
     }
     
-    _PyBiome_Type.base = PyBiome_TypeBase;
-    Py_TYPE(PyBiome_TypePtr) = &PyBiome_MetaType;
-    Py_SIZE(PyBiome_TypePtr) = 80;
+    _PyBiomeID_Type.base = PyBiomeID_TypeBase;
+    Py_TYPE(PyBiomeID_TypePtr) = &PyBiomeID_MetaType;
+    Py_SIZE(PyBiomeID_TypePtr) = 80;
     
-    if (PyType_Ready(PyBiome_TypePtr))
+    if (PyType_Ready((PyTypeObject *)PyBiomeID_TypePtr))
     {
         return -1;
     }
     
     for (i = 0; i < 80; i++)
     {
-        Py_TYPE(&(PyCEnum_Biome_values[i])) = PyBiome_TypePtr;
+        Py_TYPE(&(PyCEnum_BiomeID_values[i])) = (PyTypeObject *)PyBiomeID_TypePtr;
     }
 
 
@@ -1002,14 +1002,14 @@ int PyCEnum_InitAll( void )
     Py_TYPE(PyBiomeTempCategory_TypePtr) = &PyBiomeTempCategory_MetaType;
     Py_SIZE(PyBiomeTempCategory_TypePtr) = 6;
     
-    if (PyType_Ready(PyBiomeTempCategory_TypePtr))
+    if (PyType_Ready((PyTypeObject *)PyBiomeTempCategory_TypePtr))
     {
         return -1;
     }
     
     for (i = 0; i < 6; i++)
     {
-        Py_TYPE(&(PyCEnum_BiomeTempCategory_values[i])) = PyBiomeTempCategory_TypePtr;
+        Py_TYPE(&(PyCEnum_BiomeTempCategory_values[i])) = (PyTypeObject *)PyBiomeTempCategory_TypePtr;
     }
 
 

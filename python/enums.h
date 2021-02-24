@@ -24,13 +24,13 @@ typedef struct {
     char *name;
 } PyBiomeTypeObject;
 
-extern PyCEnumMetaObject *PyBiome_TypePtr;
+extern PyCEnumMetaObject *PyBiomeID_TypePtr;
 typedef struct {
     PyObject_HEAD
     int id;
     char *name;
     char *alternative_name;
-} PyBiomeObject;
+} PyBiomeIDObject;
 
 extern PyCEnumMetaObject *PyBiomeTempCategory_TypePtr;
 typedef struct {

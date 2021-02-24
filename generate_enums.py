@@ -85,7 +85,7 @@ def _typedef(name, length):
 }} _Py{name}_Type = {{
     .values = {{
         {''',
-        '''.join(f'''&(PyCEnum_{name}_values[{index}])''' for index in range(length))}
+        '''.join(f'''(PyObject *)&(PyCEnum_{name}_values[{index}])''' for index in range(length))}
     }}
 }};
 
@@ -133,14 +133,14 @@ def _initer_part(name, length):
     Py_TYPE(Py{name}_TypePtr) = &Py{name}_MetaType;
     Py_SIZE(Py{name}_TypePtr) = {length};
     
-    if (PyType_Ready(Py{name}_TypePtr))
+    if (PyType_Ready((PyTypeObject *)Py{name}_TypePtr))
     {{
         return -1;
     }}
     
     for (i = 0; i < {length}; i++)
     {{
-        Py_TYPE(&(PyCEnum_{name}_values[i])) = Py{name}_TypePtr;
+        Py_TYPE(&(PyCEnum_{name}_values[i])) = (PyTypeObject *)Py{name}_TypePtr;
     }}
 
 

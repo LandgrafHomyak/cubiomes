@@ -1,4 +1,6 @@
-from typing import Iterable, Union, overload, NoReturn, Literal, Optional, Generic, TypeVar
+from typing import Iterable, Union, overload, NoReturn, Literal, Optional, Generic, TypeVar, Tuple
+
+from pip._internal.utils.deprecation import deprecated
 
 _RGB_COMPONENT_TYPE = Union[int, bytes]
 
@@ -102,134 +104,134 @@ class BiomeType(metaclass=__BiomeTypeMeta):
     name: str
 
 
-class __BiomeMeta(__enum['Biome']):
-    none: Biome
-    ocean: Biome
-    plains: Biome
-    desert: Biome
-    mountains: Biome
-    forest: Biome
-    taiga: Biome
-    swamp: Biome
-    river: Biome
-    nether_wastes: Biome
-    the_end: Biome
-    frozen_ocean: Biome
-    frozen_river: Biome
-    snowy_tundra: Biome
-    snowy_mountains: Biome
-    mushroom_fields: Biome
-    mushroom_field_shore: Biome
-    beach: Biome
-    desert_hills: Biome
-    wooded_hills: Biome
-    taiga_hills: Biome
-    mountain_edge: Biome
-    jungle: Biome
-    jungle_hills: Biome
-    jungle_edge: Biome
-    deep_ocean: Biome
-    stone_shore: Biome
-    snowy_beach: Biome
-    birch_forest: Biome
-    birch_forest_hills: Biome
-    dark_forest: Biome
-    snowy_taiga: Biome
-    snowy_taiga_hills: Biome
-    giant_tree_taiga: Biome
-    giant_tree_taiga_hills: Biome
-    wooded_mountains: Biome
-    savanna: Biome
-    savanna_plateau: Biome
-    badlands: Biome
-    wooded_badlands_plateau: Biome
-    badlands_plateau: Biome
-    small_end_islands: Biome
-    end_midlands: Biome
-    end_highlands: Biome
-    end_barrens: Biome
-    warm_ocean: Biome
-    lukewarm_ocean: Biome
-    cold_ocean: Biome
-    deep_warm_ocean: Biome
-    deep_lukewarm_ocean: Biome
-    deep_cold_ocean: Biome
-    deep_frozen_ocean: Biome
-    the_void: Biome
-    sunflower_plains: Biome
-    desert_lakes: Biome
-    gravelly_mountains: Biome
-    flower_forest: Biome
-    taiga_mountains: Biome
-    swamp_hills: Biome
-    ice_spikes: Biome
-    modified_jungle: Biome
-    modified_jungle_edge: Biome
-    tall_birch_forest: Biome
-    tall_birch_hills: Biome
-    dark_forest_hills: Biome
-    snowy_taiga_mountains: Biome
-    giant_spruce_taiga: Biome
-    giant_spruce_taiga_hills: Biome
-    modified_gravelly_mountains: Biome
-    shattered_savanna: Biome
-    shattered_savanna_plateau: Biome
-    eroded_badlands: Biome
-    modified_wooded_badlands_plateau: Biome
-    modified_badlands_plateau: Biome
-    bamboo_jungle: Biome
-    bamboo_jungle_hills: Biome
-    soul_sand_valley: Biome
-    crimson_forest: Biome
-    warped_forest: Biome
-    basalt_deltas: Biome
-    extremeHills: Biome
-    swampland: Biome
-    hell: Biome
-    sky: Biome
-    frozenOcean: Biome
-    frozenRiver: Biome
-    icePlains: Biome
-    iceMountains: Biome
-    mushroomIsland: Biome
-    mushroomIslandShore: Biome
-    desertHills: Biome
-    forestHills: Biome
-    taigaHills: Biome
-    extremeHillsEdge: Biome
-    jungleHills: Biome
-    jungleEdge: Biome
-    deepOcean: Biome
-    stoneBeach: Biome
-    coldBeach: Biome
-    birchForest: Biome
-    birchForestHills: Biome
-    roofedForest: Biome
-    coldTaiga: Biome
-    coldTaigaHills: Biome
-    megaTaiga: Biome
-    megaTaigaHills: Biome
-    extremeHillsPlus: Biome
-    savannaPlateau: Biome
-    mesa: Biome
-    mesaPlateau_F: Biome
-    mesaPlateau: Biome
-    warmOcean: Biome
-    lukewarmOcean: Biome
-    coldOcean: Biome
-    warmDeepOcean: Biome
-    lukewarmDeepOcean: Biome
-    coldDeepOcean: Biome
-    frozenDeepOcean: Biome
+class __BiomeMeta(__enum['BiomeId']):
+    none: BiomeID
+    ocean: BiomeID
+    plains: BiomeID
+    desert: BiomeID
+    mountains: BiomeID
+    forest: BiomeID
+    taiga: BiomeID
+    swamp: BiomeID
+    river: BiomeID
+    nether_wastes: BiomeID
+    the_end: BiomeID
+    frozen_ocean: BiomeID
+    frozen_river: BiomeID
+    snowy_tundra: BiomeID
+    snowy_mountains: BiomeID
+    mushroom_fields: BiomeID
+    mushroom_field_shore: BiomeID
+    beach: BiomeID
+    desert_hills: BiomeID
+    wooded_hills: BiomeID
+    taiga_hills: BiomeID
+    mountain_edge: BiomeID
+    jungle: BiomeID
+    jungle_hills: BiomeID
+    jungle_edge: BiomeID
+    deep_ocean: BiomeID
+    stone_shore: BiomeID
+    snowy_beach: BiomeID
+    birch_forest: BiomeID
+    birch_forest_hills: BiomeID
+    dark_forest: BiomeID
+    snowy_taiga: BiomeID
+    snowy_taiga_hills: BiomeID
+    giant_tree_taiga: BiomeID
+    giant_tree_taiga_hills: BiomeID
+    wooded_mountains: BiomeID
+    savanna: BiomeID
+    savanna_plateau: BiomeID
+    badlands: BiomeID
+    wooded_badlands_plateau: BiomeID
+    badlands_plateau: BiomeID
+    small_end_islands: BiomeID
+    end_midlands: BiomeID
+    end_highlands: BiomeID
+    end_barrens: BiomeID
+    warm_ocean: BiomeID
+    lukewarm_ocean: BiomeID
+    cold_ocean: BiomeID
+    deep_warm_ocean: BiomeID
+    deep_lukewarm_ocean: BiomeID
+    deep_cold_ocean: BiomeID
+    deep_frozen_ocean: BiomeID
+    the_void: BiomeID
+    sunflower_plains: BiomeID
+    desert_lakes: BiomeID
+    gravelly_mountains: BiomeID
+    flower_forest: BiomeID
+    taiga_mountains: BiomeID
+    swamp_hills: BiomeID
+    ice_spikes: BiomeID
+    modified_jungle: BiomeID
+    modified_jungle_edge: BiomeID
+    tall_birch_forest: BiomeID
+    tall_birch_hills: BiomeID
+    dark_forest_hills: BiomeID
+    snowy_taiga_mountains: BiomeID
+    giant_spruce_taiga: BiomeID
+    giant_spruce_taiga_hills: BiomeID
+    modified_gravelly_mountains: BiomeID
+    shattered_savanna: BiomeID
+    shattered_savanna_plateau: BiomeID
+    eroded_badlands: BiomeID
+    modified_wooded_badlands_plateau: BiomeID
+    modified_badlands_plateau: BiomeID
+    bamboo_jungle: BiomeID
+    bamboo_jungle_hills: BiomeID
+    soul_sand_valley: BiomeID
+    crimson_forest: BiomeID
+    warped_forest: BiomeID
+    basalt_deltas: BiomeID
+    extremeHills: BiomeID
+    swampland: BiomeID
+    hell: BiomeID
+    sky: BiomeID
+    frozenOcean: BiomeID
+    frozenRiver: BiomeID
+    icePlains: BiomeID
+    iceMountains: BiomeID
+    mushroomIsland: BiomeID
+    mushroomIslandShore: BiomeID
+    desertHills: BiomeID
+    forestHills: BiomeID
+    taigaHills: BiomeID
+    extremeHillsEdge: BiomeID
+    jungleHills: BiomeID
+    jungleEdge: BiomeID
+    deepOcean: BiomeID
+    stoneBeach: BiomeID
+    coldBeach: BiomeID
+    birchForest: BiomeID
+    birchForestHills: BiomeID
+    roofedForest: BiomeID
+    coldTaiga: BiomeID
+    coldTaigaHills: BiomeID
+    megaTaiga: BiomeID
+    megaTaigaHills: BiomeID
+    extremeHillsPlus: BiomeID
+    savannaPlateau: BiomeID
+    mesa: BiomeID
+    mesaPlateau_F: BiomeID
+    mesaPlateau: BiomeID
+    warmOcean: BiomeID
+    lukewarmOcean: BiomeID
+    coldOcean: BiomeID
+    warmDeepOcean: BiomeID
+    lukewarmDeepOcean: BiomeID
+    coldDeepOcean: BiomeID
+    frozenDeepOcean: BiomeID
 
     @overload
-    def __call__(self, id: int, /) -> Biome: ...
+    def __call__(self, id: int, /) -> BiomeID: ...
 
     @overload
-    def __call__(self, name: str, /) -> Biome: ...
+    def __call__(self, name: str, /) -> BiomeID: ...
 
 
-class Biome(metaclass=__BiomeMeta):
+class BiomeID(metaclass=__BiomeMeta):
     id: int
     name: str
     alternative_name: Optional[str]
@@ -253,3 +255,49 @@ class __BiomeTempCategoryMeta(__enum['BiomeTempCategory']):
 class BiomeTempCategory(metaclass=__BiomeTempCategoryMeta):
     id: int
     name: str
+
+
+def initBiomes() -> NoReturn: ...
+
+
+class Biome:
+    id: BiomeID
+    type: BiomeType
+    height: float
+    temp: float
+    tempCat: BiomeTempCategory
+    mutated: BiomeID
+    name: str
+
+    def __new__(
+            self,
+            id: int = ...,
+            type: Union[int, str, BiomeType] = ...,
+            height: float = ...,
+            temp: float = ...,
+            tempCat: Union[int, str, BiomeType] = ...,
+            name: Optional[str] = ...
+    ) -> __CustomBiome: ...
+
+    def __init_subclass__(cls, **kwargs) -> NoReturn: ...
+
+
+class __CustomBiome(Biome):
+    id: int
+    type: BiomeType
+    height: float
+    temp: float
+    tempCat: BiomeTempCategory
+    mutated: None
+    name: str
+
+
+class __biomes_tuple(tuple):
+    def __new__(cls, *args, **kwargs) -> tuple: ...
+
+    def __len__(self) -> Literal[256]: ...
+
+    def __getitem__(self, item: Union[int, BiomeID]) -> Biome: ...
+
+
+biomes: __biomes_tuple

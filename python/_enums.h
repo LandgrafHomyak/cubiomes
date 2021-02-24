@@ -17,8 +17,8 @@ void PyCEnumMeta_Dealloc(PyCEnumMetaObject *cls);
 extern PyTypeObject PyBiomeType_TypeBase;
 PyBiomeTypeObject * PyBiomeType_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *kwargs);
 
-extern PyTypeObject PyBiome_TypeBase;
-PyBiomeObject * PyBiome_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *kwargs);
+extern PyTypeObject PyBiomeID_TypeBase;
+PyBiomeIDObject * PyBiomeID_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *kwargs);
 
 extern PyTypeObject PyBiomeTempCategory_TypeBase;
 PyBiomeTempCategoryObject * PyBiomeTempCategory_Call(PyCEnumMetaObject *cls, PyObject *args, PyObject *kwargs);

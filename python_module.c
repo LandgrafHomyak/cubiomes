@@ -6,11 +6,13 @@
 
 #include "python/biome_colours.h"
 #include "python/enums.h"
+#include "python/biome.h"
 
 
 static PyMethodDef module_functions[] = {
      {"initBiomeColours", (PyCFunction)Py_initBiomeColours, METH_VARARGS, "This colouring scheme is taken from the AMIDST program:\nhttps://github.com/toolbox4minecraft/amidst\nhttps://sourceforge.net/projects/amidst.mirror/"},
      {"initBiomeTypeColours", (PyCFunction)Py_initBiomeTypeColours, METH_VARARGS, ""},
+     {"initBiomes", (PyCFunction)Py_initBiomes, METH_NOARGS, ""},
      {NULL}
 };
 
@@ -66,13 +68,19 @@ PyMODINIT_FUNC PyInit_cubiomes( void ) {
     {
         return NULL;
     }
+    if(PyBiome_InitAll() == -1)
+    {
+        return NULL;
+    }
 
     PyModule_AddObject(module, "BiomesPalette", (PyObject *)&PyBiomesPalette_Type);
     PyModule_AddObject(module, "ColorPointer", (PyObject *)&PyColorPointer_Type);
     PyModule_AddObject(module, "Color", (PyObject *)&PyColor_Type);
     PyModule_AddObject(module, "BiomeType", (PyObject *)PyBiomeType_TypePtr);
-    PyModule_AddObject(module, "Biome", (PyObject *)PyBiome_TypePtr);
+    PyModule_AddObject(module, "BiomeID", (PyObject *)PyBiomeID_TypePtr);
     PyModule_AddObject(module, "BiomeTempCategory", (PyObject *)PyBiomeTempCategory_TypePtr);
+    PyModule_AddObject(module, "Biome", (PyObject *)&PyBiome_Type);
+    PyModule_AddObject(module, "biomes", (PyObject *)Py_biomes);
 
     return module;
 }
