@@ -7,6 +7,7 @@
 #include "python/biome_colours.h"
 #include "python/enums.h"
 #include "python/biome.h"
+#include "python/random.h"
 
 
 static PyMethodDef module_functions[] = {
@@ -22,6 +23,22 @@ static PyMethodDef module_functions[] = {
      {"isDeepOcean", (PyCFunction)Py_isDeepOcean, METH_O, ""},
      {"isOceanic", (PyCFunction)Py_isOceanic, METH_O, ""},
      {"isBiomeSnowy", (PyCFunction)Py_isBiomeSnowy, METH_O, ""},
+     {"mcStepSeed", (PyCFunction)Py_mcStepSeed, METH_VARARGS, ""},
+     {"mcFirstInt", (PyCFunction)Py_mcFirstInt, METH_VARARGS, ""},
+     {"mcFirstIsZero", (PyCFunction)Py_mcFirstIsZero, METH_VARARGS, ""},
+     {"getChunkSeed", (PyCFunction)Py_getChunkSeed, METH_VARARGS, ""},
+     {"getLayerSeed", (PyCFunction)Py_getLayerSeed, METH_VARARGS, ""},
+     {"getStartSalt", (PyCFunction)Py_getStartSalt, METH_VARARGS, ""},
+     {"getStartSeed", (PyCFunction)Py_getStartSeed, METH_VARARGS, ""},
+     {"setSeed", (PyCFunction)Py_setSeed, METH_O, ""},
+     {"next", (PyCFunction)Py_next, METH_VARARGS, ""},
+     {"nextInt", (PyCFunction)Py_nextInt, METH_VARARGS, ""},
+     {"nextLong", (PyCFunction)Py_nextLong, METH_O, ""},
+     {"nextFloat", (PyCFunction)Py_nextFloat, METH_O, ""},
+     {"nextDouble", (PyCFunction)Py_nextDouble, METH_O, ""},
+     {"skipNextN", (PyCFunction)Py_skipNextN, METH_VARARGS, ""},
+     {"invSeed48", (PyCFunction)Py_invSeed48, METH_O, ""},
+     {"mulInv", (PyCFunction)Py_mulInv, METH_VARARGS, ""},
      {NULL}
 };
 
@@ -82,6 +99,11 @@ PyMODINIT_FUNC PyInit_cubiomes( void ) {
         return NULL;
     }
 
+    if (PyType_Ready(&PyJavaRndSeed_Type))
+    {
+        return NULL;
+    }
+
     PyModule_AddObject(module, "BiomesPalette", (PyObject *)&PyBiomesPalette_Type);
     PyModule_AddObject(module, "ColorPointer", (PyObject *)&PyColorPointer_Type);
     PyModule_AddObject(module, "Color", (PyObject *)&PyColor_Type);
@@ -90,6 +112,7 @@ PyMODINIT_FUNC PyInit_cubiomes( void ) {
     PyModule_AddObject(module, "BiomeTempCategory", (PyObject *)PyBiomeTempCategory_TypePtr);
     PyModule_AddObject(module, "Biome", (PyObject *)&PyBiome_Type);
     PyModule_AddObject(module, "biomes", (PyObject *)Py_biomes);
+    PyModule_AddObject(module, "JavaRndSeed", (PyObject *)&PyJavaRndSeed_Type);
 
     return module;
 }

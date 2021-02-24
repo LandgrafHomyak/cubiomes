@@ -188,6 +188,7 @@ ext = Extension(
         "./python/enums.c",
         "./python/biome_colours.c",
         "./python/biome.c",
+        "./python/random.c",
     ]
 )
 setup(
